@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FP.059-NAGASystems-Prod2", "FP.059-NAGASystems-Prod2.csproj", "{BBE078CA-276C-43AB-9073-E815E8FF90F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FP.059-NAGASystems-Prod3", "FP.059-NAGASystems-Prod3.csproj", "{BBE078CA-276C-43AB-9073-E815E8FF90F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

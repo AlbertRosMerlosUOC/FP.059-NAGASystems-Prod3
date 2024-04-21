@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CapaModelo;
 
-namespace FP._059_NAGASystems_Prod2.Data
+namespace FP._059_NAGASystems_Prod3.Data
 {
-    public class FP_059_NAGASystems_Prod2Context : DbContext
+    public class FP_059_NAGASystems_Prod3Context : DbContext
     {
-        public FP_059_NAGASystems_Prod2Context (DbContextOptions<FP_059_NAGASystems_Prod2Context> options)
+        public FP_059_NAGASystems_Prod3Context (DbContextOptions<FP_059_NAGASystems_Prod3Context> options)
             : base(options)
         {
         }

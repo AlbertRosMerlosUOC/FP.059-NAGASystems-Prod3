@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CapaModelo;
-using FP._059_NAGASystems_Prod2.Data;
+using FP._059_NAGASystems_Prod3.Data;
 
-namespace FP._059_NAGASystems_Prod2.Controllers
+namespace FP._059_NAGASystems_Prod3.Controllers
 {
     public class HabitacionController : Controller
     {
-        private readonly FP_059_NAGASystems_Prod2Context _context;
+        private readonly FP_059_NAGASystems_Prod3Context _context;
         private readonly HabitacionServicio _habitacionServicio;
 
-        public HabitacionController(FP_059_NAGASystems_Prod2Context context)
+        public HabitacionController(FP_059_NAGASystems_Prod3Context context)
         {
             _context = context;
             _habitacionServicio = new HabitacionServicio(context); 
