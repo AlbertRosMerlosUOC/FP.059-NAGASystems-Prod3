@@ -15,7 +15,7 @@ public class HabitacionServicio
     {
         var habitacionesOcupadas = await _context.Reserva
             .Where(r => r.FechaInicio < fechaFin && r.FechaFin > fechaInicio && r.Cancelado == 0)
-            .Select(r => r.Habitacion)
+            .Select(r => r.HabitacionId)
             .Distinct()
             .ToListAsync();
 

@@ -90,7 +90,7 @@ namespace FP._059_NAGASystems_Prod3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Numero,TipoHabitacion,Estado")] Habitacion habitacion)
+        public async Task<IActionResult> Create([Bind("Numero,TipoHabitacionId,Estado")] Habitacion habitacion)
         {
             if (ModelState.IsValid)
             {
@@ -122,7 +122,7 @@ namespace FP._059_NAGASystems_Prod3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Numero,TipoHabitacion,Estado")] Habitacion habitacion)
+        public async Task<IActionResult> Edit(int id, [Bind("Numero,TipoHabitacionId,Estado")] Habitacion habitacion)
         {
             if (id != habitacion.Numero)
             {

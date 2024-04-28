@@ -14,5 +14,10 @@ namespace CapaModelo
         public int Id { get; set; }
         public string Descripcion { get; set; }
         public double Coeficiente { get; set; }
+        public List<Reserva> Reservas { get; set; }
+        public Oferta()
+        {
+            Reservas = new List<Reserva>();
+        }
     }
 }
