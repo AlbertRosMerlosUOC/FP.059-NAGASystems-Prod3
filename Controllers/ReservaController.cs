@@ -124,7 +124,7 @@ namespace FP._059_NAGASystems_Prod3
         public IActionResult Create()
         {
             PopulateSelectLists();  // Usar el método auxiliar para configurar los SelectList
-            return View(new Reserva { Factura = 0, Cancelado = 0, CheckIn = 0}); // Establece valores predeterminados
+            return View(new Reserva { Factura = 0, Cancelado = 0, CheckIn = 0 }); // Establece valores predeterminados
         }
 
         // POST: Reserva/Create
@@ -147,7 +147,7 @@ namespace FP._059_NAGASystems_Prod3
             }
 
             // Recargar SelectList en caso de modelo no válido, manteniendo selecciones del usuario
-            PopulateSelectLists(reserva.TipoAlojamientoId, reserva.TipoTemporadaId, reserva.OfertaId);
+            PopulateSelectLists(reserva.TipoAlojamientoId, reserva.TipoTemporadaId, reserva.OfertaId, reserva.HabitacionId);
             return View(reserva);
         }
 
@@ -165,7 +165,7 @@ namespace FP._059_NAGASystems_Prod3
             {
                 return NotFound();
             }
-            PopulateSelectLists(reserva.TipoAlojamientoId, reserva.TipoTemporadaId, reserva.OfertaId);
+            PopulateSelectLists(reserva.TipoAlojamientoId, reserva.TipoTemporadaId, reserva.OfertaId, reserva.HabitacionId);
             return View(reserva);
         }
 
@@ -199,15 +199,16 @@ namespace FP._059_NAGASystems_Prod3
                 }
                 return RedirectToAction(nameof(Index));
             }
-            PopulateSelectLists(reserva.TipoAlojamientoId, reserva.TipoTemporadaId, reserva.OfertaId);
+            PopulateSelectLists(reserva.TipoAlojamientoId, reserva.TipoTemporadaId, reserva.OfertaId, reserva.HabitacionId);
             return View(reserva);
         }
 
-        private void PopulateSelectLists(int? tipoAlojamientoId = null, int? tipoTemporadaId = null, int? ofertaId = null)
+        private void PopulateSelectLists(int? tipoAlojamientoId = null, int? tipoTemporadaId = null, int? ofertaId = null, int? habitacionId = null)
         {
             ViewBag.TipoAlojamientoId = new SelectList(_context.TipoAlojamiento, "Id", "Descripcion", tipoAlojamientoId);
             ViewBag.TipoTemporadaId = new SelectList(_context.TipoTemporada, "Id", "Descripcion", tipoTemporadaId);
             ViewBag.OfertaId = new SelectList(_context.Oferta, "Id", "Descripcion", ofertaId);
+            ViewBag.HabitacionId = new SelectList(_context.Habitacion, "Id", "Nombre", habitacionId);
         }
 
         // GET: Reserva/Delete/5

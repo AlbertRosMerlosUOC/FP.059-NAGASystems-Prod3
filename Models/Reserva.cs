@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CapaModelo
 {
@@ -48,7 +43,6 @@ namespace CapaModelo
             return ValidationResult.Success;
         }
 
-        [Required(ErrorMessage = "El campo Referido es obligatorio.")]
         public string Referido { get; set; }
 
         [Required(ErrorMessage = "El campo Oferta es obligatorio.")]
