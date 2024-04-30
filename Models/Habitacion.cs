@@ -13,16 +13,19 @@ namespace CapaModelo
     {
         [Key]
         public int Numero { get; set; }
+
         public int Estado { get; set; }
+
         public int TipoHabitacionId { get; set; }
         [ForeignKey("TipoHabitacionId")]
-        public TipoHabitacion TipoHabitacion { get; set; }
+        public TipoHabitacion? TipoHabitacion { get; set; }
 
         public List<Reserva> Reservas { get; set; }
         public Habitacion()
         {
-            Reservas = new List<Reserva> ();
+            Reservas = new List<Reserva>();
         }
     }
+
 
 }

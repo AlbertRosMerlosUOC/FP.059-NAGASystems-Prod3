@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CapaModelo;
 using FP._059_NAGASystems_Prod3.Data;
+using static CapaModelo.Habitacion;
 
 namespace FP._059_NAGASystems_Prod3.Controllers
 {
@@ -58,7 +59,8 @@ namespace FP._059_NAGASystems_Prod3.Controllers
         // GET: Habitacion
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Habitacion.ToListAsync());
+            var habitaciones = _context.Habitacion.Include(h => h.TipoHabitacion);
+            return View(await habitaciones.ToListAsync());
         }
 
         // GET: Habitacion/Details/5
@@ -82,15 +84,14 @@ namespace FP._059_NAGASystems_Prod3.Controllers
         // GET: Habitacion/Create
         public IActionResult Create()
         {
+            ViewBag.TipoHabitacionId = new SelectList(_context.TipoHabitacion, "Id", "Descripcion");
             return View();
         }
 
         // POST: Habitacion/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Numero,TipoHabitacionId,Estado")] Habitacion habitacion)
+        public async Task<IActionResult> Create([Bind("TipoHabitacionId,Estado")] Habitacion habitacion)
         {
             if (ModelState.IsValid)
             {
@@ -98,6 +99,7 @@ namespace FP._059_NAGASystems_Prod3.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.TipoHabitacionId = new SelectList(_context.TipoHabitacion, "Id", "Descripcion", habitacion.TipoHabitacionId);
             return View(habitacion);
         }
 
