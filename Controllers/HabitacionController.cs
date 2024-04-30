@@ -72,6 +72,7 @@ namespace FP._059_NAGASystems_Prod3.Controllers
             }
 
             var habitacion = await _context.Habitacion
+                .Include(h => h.TipoHabitacion)  // Añade esta línea
                 .FirstOrDefaultAsync(m => m.Numero == id);
             if (habitacion == null)
             {
@@ -111,11 +112,14 @@ namespace FP._059_NAGASystems_Prod3.Controllers
                 return NotFound();
             }
 
-            var habitacion = await _context.Habitacion.FindAsync(id);
+            var habitacion = await _context.Habitacion
+                .Include(h => h.TipoHabitacion)  // Añade esta línea
+                .FirstOrDefaultAsync(m => m.Numero == id);
             if (habitacion == null)
             {
                 return NotFound();
             }
+            ViewBag.TipoHabitacionId = new SelectList(_context.TipoHabitacion, "Id", "Descripcion", habitacion.TipoHabitacionId);
             return View(habitacion);
         }
 
