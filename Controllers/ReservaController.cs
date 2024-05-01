@@ -145,6 +145,18 @@ namespace FP._059_NAGASystems_Prod3
         {
             if (ModelState.IsValid)
             {
+                // Comprueba si la habitación está disponible en las fechas seleccionadas
+                bool isRoomAvailable = !_context.Reserva.Any(r => r.HabitacionId == reserva.HabitacionId &&
+                                                                  r.FechaFin > reserva.FechaInicio &&
+                                                                  r.FechaInicio < reserva.FechaFin &&
+                                                                  r.Cancelado == 0);
+                if (!isRoomAvailable)
+                {
+                    ModelState.AddModelError("", "La habitación seleccionada no está disponible en las fechas elegidas. Por favor, elige otra habitación o cambia las fechas.");
+                    PopulateSelectLists(reserva.TipoAlojamientoId, reserva.TipoTemporadaId, reserva.OfertaId, reserva.HabitacionId);
+                    return View(reserva);
+                }
+        
                 // Buscar la habitación seleccionada
                 var habitacion = await _context.Habitacion.FirstOrDefaultAsync(h => h.Numero == reserva.HabitacionId);
                 if (habitacion == null)
@@ -152,18 +164,18 @@ namespace FP._059_NAGASystems_Prod3
                     ModelState.AddModelError("", "La habitación seleccionada no existe.");
                     return View(reserva);
                 }
-
+        
                 // Actualizar el estado de la habitación seleccionada
                 habitacion.Estado = 1;  // Marcar la habitación como no disponible
                 _context.Update(habitacion);
-
+        
                 // Agregar la reserva a la base de datos
                 _context.Add(reserva);
                 await _context.SaveChangesAsync();
-
+        
                 return RedirectToAction(nameof(Index));
             }
-
+        
             // Recargar SelectList en caso de modelo no válido, manteniendo selecciones del usuario
             PopulateSelectLists(reserva.TipoAlojamientoId, reserva.TipoTemporadaId, reserva.OfertaId, reserva.HabitacionId);
             return View(reserva);
