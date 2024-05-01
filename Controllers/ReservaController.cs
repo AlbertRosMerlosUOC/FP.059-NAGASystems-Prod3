@@ -90,7 +90,7 @@ namespace FP._059_NAGASystems_Prod3
         // POST: Reserva/ConfirmCheckOut/5
         [HttpPost, ActionName("ConfirmCheckOut")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ConfirmCheckOut(int id)
+        public async Task<IActionResult> ConfirmCheckOut(int id, decimal totalFactura)
         {
             var reserva = await _context.Reserva
                 .Include(r => r.Habitacion)
@@ -104,22 +104,7 @@ namespace FP._059_NAGASystems_Prod3
                 return NotFound();
             }
 
-
-            // Calcula el total de días.
-            int totalDias = (reserva.FechaFin - reserva.FechaInicio).Days;
-            if (totalDias == 0) totalDias = 1;  // Asegura que al menos un día es cobrado
-
-            // Convertir el coeficiente de porcentaje a formato decimal
-            double coeficienteDecimal = reserva.TipoTemporada.Coeficiente / 100.0;
-
-            // Calcular el costo base aplicando el coeficiente
-            double costoBase = (reserva.TipoAlojamiento.Precio + reserva.Habitacion.TipoHabitacion.Precio) * coeficienteDecimal;
-
-            // Calcular el total multiplicando por los días
-            double totalCosto = costoBase * totalDias;
-
-            // Actualizar la factura de la reserva
-            reserva.Factura = (decimal)totalCosto;
+            reserva.Factura = totalFactura;
 
             // Guarda los cambios en la base de datos.
             _context.Update(reserva);
