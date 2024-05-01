@@ -63,6 +63,9 @@ namespace FP._059_NAGASystems_Prod3
             {
                 return NotFound("Reserva no encontrada o ya está cancelada.");
             }
+            var servicios = await _context.Servicio.ToListAsync();
+            ViewBag.ServiciosDisponibles = servicios;
+            ViewBag.NoServices = !servicios.Any(); // Flag para verificar si hay servicios
 
             // Detalles de cálculo
             double precioHabitacion = reserva.Habitacion.TipoHabitacion.Precio;
@@ -100,6 +103,8 @@ namespace FP._059_NAGASystems_Prod3
             {
                 return NotFound();
             }
+
+
             // Calcula el total de días.
             int totalDias = (reserva.FechaFin - reserva.FechaInicio).Days;
             if (totalDias == 0) totalDias = 1;  // Asegura que al menos un día es cobrado
