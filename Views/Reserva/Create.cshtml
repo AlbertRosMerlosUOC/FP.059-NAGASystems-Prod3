@@ -14,14 +14,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="DNI" class="control-label">DNI</label>
-                <input asp-for="DNI" class="form-control" />
+                <select asp-for="DNI" class="form-control" asp-items="@ViewBag.DNI"></select>
                 <span asp-validation-for="DNI" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HabitacionId" class="control-label">Habitación</label>
-                <input asp-for="HabitacionId" class="form-control" />
-                <span asp-validation-for="HabitacionId" class="text-danger"></span>
-            </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HabitacionId" class="control-label">Número de Habitación</label>
+                    <select asp-for="HabitacionId" class="form-control" asp-items="ViewBag.HabitacionId"></select>
+                    <span asp-validation-for="HabitacionId" class="text-danger"></span>
+                </div>
             <div class="form-group">
                 <label asp-for="TipoAlojamientoId">Tipo de Alojamiento</label>
                 <select asp-for="TipoAlojamientoId" class="form-control" asp-items="@ViewBag.TipoAlojamientoId"></select>
@@ -32,19 +32,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="FechaInicio" class="control-label">Fecha de Inicio</label>
-                <input asp-for="FechaInicio" class="form-control" />
+                <input asp-for="FechaInicio" class="form-control" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="FechaInicio" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FechaFin" class="control-label">Fecha de Fin</label>
-                <input asp-for="FechaFin" class="form-control" />
+                <input asp-for="FechaFin" class="form-control" type="date" value="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="FechaFin" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="Referido" class="control-label">Referido</label>
-                <input asp-for="Referido" class="form-control" />
+                <select asp-for="Referido" class="form-control" asp-items="@ViewBag.Referido"></select>
                 <span asp-validation-for="Referido" class="text-danger"></span>
-            </div>
+			</div>*@
             <div class="form-group">
                 <label asp-for="OfertaId">Oferta</label>
                 <select asp-for="OfertaId" class="form-control" asp-items="@ViewBag.OfertaId"></select>
@@ -62,5 +62,7 @@
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

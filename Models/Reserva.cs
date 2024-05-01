@@ -10,22 +10,27 @@ namespace CapaModelo
         public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo DNI es obligatorio.")]
-        public string DNI { get; set; }
+        public string? DNI { get; set; }
+        [ForeignKey("DNI")]
+        public Cliente? Cliente { get; set; }
+
 
         [Required(ErrorMessage = "El campo Habitación es obligatorio.")]
         public int HabitacionId { get; set; }
         [ForeignKey("HabitacionId")]
-        public Habitacion Habitacion { get; set; }
+        public Habitacion? Habitacion { get; set; }
+
+
 
         [Required(ErrorMessage = "El campo Tipo de Alojamiento es obligatorio.")]
         public int TipoAlojamientoId { get; set; }
         [ForeignKey("TipoAlojamientoId")]
-        public TipoAlojamiento TipoAlojamiento { get; set; }
+        public TipoAlojamiento? TipoAlojamiento { get; set; }
 
         [Required(ErrorMessage = "El campo Tipo de Temporada es obligatorio.")]
         public int TipoTemporadaId { get; set; }
         [ForeignKey("TipoTemporadaId")]
-        public TipoTemporada TipoTemporada { get; set; }
+        public TipoTemporada? TipoTemporada { get; set; }
 
         [Required(ErrorMessage = "La fecha de inicio es obligatoria.")]
         public DateTime FechaInicio { get; set; }
@@ -43,12 +48,14 @@ namespace CapaModelo
             return ValidationResult.Success;
         }
 
-        public string Referido { get; set; }
+        // public string Referido { get; set; }
+
+
 
         [Required(ErrorMessage = "El campo Oferta es obligatorio.")]
         public int OfertaId { get; set; }
         [ForeignKey("OfertaId")]
-        public Oferta Oferta { get; set; }
+        public Oferta? Oferta { get; set; }
 
         [Required]
         public decimal Factura { get; set; } = 0.0m;

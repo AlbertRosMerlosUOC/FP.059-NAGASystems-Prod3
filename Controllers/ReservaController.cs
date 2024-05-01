@@ -124,32 +124,57 @@ namespace FP._059_NAGASystems_Prod3
         public IActionResult Create()
         {
             PopulateSelectLists();  // Usar el método auxiliar para configurar los SelectList
+
+            // Obtener una lista de todos los clientes
+            var clientes = _context.Cliente.ToList();
+
+            // Crear una lista de SelectListItem donde cada elemento tiene el DNI como valor y el DNI y el nombre como texto
+            var dniItems = clientes.Select(c => new SelectListItem
+            {
+                Value = c.DNI.ToString(),
+                Text = $"{c.DNI} - {c.Nombre}"
+            }).ToList();
+
+            // Agregar una opción "Ninguno" al principio de la lista
+            dniItems.Insert(0, new SelectListItem { Value = null, Text = "Ninguno", Selected = true });
+
+            ViewBag.DNI = new SelectList(dniItems, "Value", "Text");
+
             return View(new Reserva { Factura = 0, Cancelado = 0, CheckIn = 0 }); // Establece valores predeterminados
         }
 
         // POST: Reserva/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DNI,HabitacionId,TipoAlojamientoId,TipoTemporadaId,FechaInicio,FechaFin,Factura,Referido,CheckIn,Cancelado,OfertaId")] Reserva reserva)
+        public async Task<IActionResult> Create([Bind("DNI,HabitacionId,TipoAlojamientoId,TipoTemporadaId,FechaInicio,FechaFin,Factura,CheckIn,Cancelado,OfertaId")] Reserva reserva)
         {
             if (ModelState.IsValid)
             {
-                try
+                // Buscar la habitación seleccionada
+                var habitacion = await _context.Habitacion.FirstOrDefaultAsync(h => h.Numero == reserva.HabitacionId);
+                if (habitacion == null)
                 {
-                    _context.Add(reserva);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    ModelState.AddModelError("", "La habitación seleccionada no existe.");
+                    return View(reserva);
                 }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", $"Error al intentar crear la reserva: {ex.Message}");
-                }
+
+                // Actualizar el estado de la habitación seleccionada
+                habitacion.Estado = 1;  // Marcar la habitación como no disponible
+                _context.Update(habitacion);
+
+                // Agregar la reserva a la base de datos
+                _context.Add(reserva);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
             }
 
             // Recargar SelectList en caso de modelo no válido, manteniendo selecciones del usuario
             PopulateSelectLists(reserva.TipoAlojamientoId, reserva.TipoTemporadaId, reserva.OfertaId, reserva.HabitacionId);
             return View(reserva);
         }
+
+
 
 
         // GET: Reserva/Edit/5
@@ -203,13 +228,27 @@ namespace FP._059_NAGASystems_Prod3
             return View(reserva);
         }
 
-        private void PopulateSelectLists(int? tipoAlojamientoId = null, int? tipoTemporadaId = null, int? ofertaId = null, int? habitacionId = null)
+        private List<Habitacion> GetHabitacionesDisponibles()
+        {
+            // Obtener todas las habitaciones de la tabla Habitacion
+            var habitacionesDisponibles = _context.Habitacion.ToList();
+
+            return habitacionesDisponibles;
+        }
+
+
+        private void PopulateSelectLists(int tipoAlojamientoId = 1, int tipoTemporadaId = 1, int ofertaId = 1, int numero = 1)
         {
             ViewBag.TipoAlojamientoId = new SelectList(_context.TipoAlojamiento, "Id", "Descripcion", tipoAlojamientoId);
             ViewBag.TipoTemporadaId = new SelectList(_context.TipoTemporada, "Id", "Descripcion", tipoTemporadaId);
             ViewBag.OfertaId = new SelectList(_context.Oferta, "Id", "Descripcion", ofertaId);
-            ViewBag.HabitacionId = new SelectList(_context.Habitacion, "Id", "Nombre", habitacionId);
+
+            // Obtener las habitaciones disponibles
+            var habitacionesDisponibles = GetHabitacionesDisponibles();
+
+            ViewBag.HabitacionId = new SelectList(habitacionesDisponibles, "Numero", "Numero", numero);
         }
+
 
         // GET: Reserva/Delete/5
         public async Task<IActionResult> Delete(int? id)
