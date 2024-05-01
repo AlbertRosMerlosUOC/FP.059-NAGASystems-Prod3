@@ -34,6 +34,10 @@ namespace FP._059_NAGASystems_Prod3
             }
 
             var reserva = await _context.Reserva
+                .Include(r => r.Habitacion)
+                    .ThenInclude(h => h.TipoHabitacion)
+                .Include(r => r.TipoAlojamiento)
+                .Include(r => r.TipoTemporada)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (reserva == null)
             {
@@ -42,6 +46,7 @@ namespace FP._059_NAGASystems_Prod3
 
             return View(reserva);
         }
+
 
         // GET: Reserva/CheckOut/5
         [HttpGet]
@@ -190,9 +195,26 @@ namespace FP._059_NAGASystems_Prod3
             {
                 return NotFound();
             }
+
+            // Obtener una lista de todos los clientes
+            var clientes = _context.Cliente.ToList();
+
+            // Crear una lista de SelectListItem donde cada elemento tiene el DNI como valor y el DNI y el nombre como texto
+            var dniItems = clientes.Select(c => new SelectListItem
+            {
+                Value = c.DNI.ToString(),
+                Text = $"{c.DNI} - {c.Nombre}"
+            }).ToList();
+
+            // Agregar una opción "Ninguno" al principio de la lista
+            dniItems.Insert(0, new SelectListItem { Value = null, Text = "Ninguno", Selected = true });
+
+            ViewBag.DNI = new SelectList(dniItems, "Value", "Text");
+
             PopulateSelectLists(reserva.TipoAlojamientoId, reserva.TipoTemporadaId, reserva.OfertaId, reserva.HabitacionId);
             return View(reserva);
         }
+
 
         // POST: Reserva/Edit/5
         [HttpPost]
@@ -253,13 +275,18 @@ namespace FP._059_NAGASystems_Prod3
         // GET: Reserva/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
             }
 
             var reserva = await _context.Reserva
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(r => r.Habitacion)
+                    .ThenInclude(h => h.TipoHabitacion)
+                .Include(r => r.TipoAlojamiento)
+                .Include(r => r.TipoTemporada)
+                .FirstOrDefaultAsync(r => r.Id == id);
             if (reserva == null)
             {
                 return NotFound();
@@ -268,20 +295,18 @@ namespace FP._059_NAGASystems_Prod3
             return View(reserva);
         }
 
+
         // POST: Reserva/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var reserva = await _context.Reserva.FindAsync(id);
-            if (reserva != null)
-            {
-                _context.Reserva.Remove(reserva);
-            }
-
+            _context.Reserva.Remove(reserva);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool ReservaExists(int id)
         {
