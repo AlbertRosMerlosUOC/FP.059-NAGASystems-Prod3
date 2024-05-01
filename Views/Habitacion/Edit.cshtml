@@ -14,13 +14,18 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Numero" />
             <div class="form-group">
-                <label asp-for="TipoHabitacion" class="control-label"></label>
-                <input asp-for="TipoHabitacion" class="form-control" />
-                <span asp-validation-for="TipoHabitacion" class="text-danger"></span>
+                <label asp-for="TipoHabitacionId" class="control-label"></label>
+                <select asp-for="TipoHabitacionId" class="form-control" asp-items="ViewBag.TipoHabitacionId">
+                    <option value="">-- Select --</option>
+                </select>
+                <span asp-validation-for="TipoHabitacionId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
+                <select asp-for="Estado" class="form-control">
+                    <option value="1">Activa</option>
+                    <option value="2">Inactiva</option>
+                </select>
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
             <div class="form-group">

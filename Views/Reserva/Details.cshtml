@@ -17,22 +17,22 @@
             @Html.DisplayFor(model => model.DNI)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Habitacion)
+            @Html.DisplayNameFor(model => model.Habitacion.Numero)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Habitacion)
+            @Html.DisplayFor(model => model.Habitacion.Numero)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoAlojamiento)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoAlojamiento.Descripcion)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TipoAlojamiento)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TipoAlojamiento.Descripcion)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoTemporada)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoTemporada.Descripcion)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TipoTemporada)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TipoTemporada.Descripcion)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.FechaInicio)
@@ -52,12 +52,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Factura)
         </dd>
-        <dt class = "col-sm-2">
+        @*<dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Referido)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Referido)
-        </dd>
+		</dd>*@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CheckIn)
         </dt>
@@ -71,15 +71,15 @@
             @Html.DisplayFor(model => model.Cancelado)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Oferta)
+            @Html.DisplayNameFor(model => model.OfertaId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Oferta)
+            @Html.DisplayFor(model => model.OfertaId)
         </dd>
     </dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
-    <a asp-action="Delete">Eliminar Registro</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id">Eliminar</a>
 </div>

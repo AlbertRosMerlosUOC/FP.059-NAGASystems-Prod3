@@ -11,5 +11,6 @@ namespace CapaModelo
         public int Reserva { get; set; }
         public int Servicio { get; set; }
         public DateTime Fecha { get; set; }
+        public int Cantidad { get; set; }
     }
 }
