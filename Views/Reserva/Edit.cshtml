@@ -10,63 +10,45 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" asp-controller="Reserva" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="DNI" class="control-label"></label>
-                <input asp-for="DNI" class="form-control" />
+                <label asp-for="DNI" class="control-label">DNI</label>
+                <select asp-for="DNI" class="form-control" asp-items="@ViewBag.DNI"></select>
                 <span asp-validation-for="DNI" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Habitacion" class="control-label"></label>
-                <input asp-for="Habitacion" class="form-control" />
-                <span asp-validation-for="Habitacion" class="text-danger"></span>
+                <label asp-for="HabitacionId" class="control-label">Número de Habitación</label>
+                <select asp-for="HabitacionId" class="form-control" asp-items="ViewBag.HabitacionId"></select>
+                <span asp-validation-for="HabitacionId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TipoAlojamiento" class="control-label"></label>
-                <input asp-for="TipoAlojamiento" class="form-control" />
-                <span asp-validation-for="TipoAlojamiento" class="text-danger"></span>
+                <label asp-for="TipoAlojamientoId">Tipo de Alojamiento</label>
+                <select asp-for="TipoAlojamientoId" class="form-control" asp-items="@ViewBag.TipoAlojamientoId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="TipoTemporada" class="control-label"></label>
-                <input asp-for="TipoTemporada" class="form-control" />
-                <span asp-validation-for="TipoTemporada" class="text-danger"></span>
+                <label asp-for="TipoTemporadaId">Tipo de Temporada</label>
+                <select asp-for="TipoTemporadaId" class="form-control" asp-items="@ViewBag.TipoTemporadaId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="FechaInicio" class="control-label"></label>
-                <input asp-for="FechaInicio" class="form-control" />
+                <label asp-for="FechaInicio" class="control-label">Fecha de Inicio</label>
+                <input asp-for="FechaInicio" class="form-control" type="date" />
                 <span asp-validation-for="FechaInicio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FechaFin" class="control-label"></label>
-                <input asp-for="FechaFin" class="form-control" />
+                <label asp-for="FechaFin" class="control-label">Fecha de Fin</label>
+                <input asp-for="FechaFin" class="form-control" type="date" />
                 <span asp-validation-for="FechaFin" class="text-danger"></span>
             </div>
+            @*<div class="form-group">
+            <label asp-for="Referido" class="control-label">Referido</label>
+            <select asp-for="Referido" class="form-control" asp-items="@ViewBag.Referido"></select>
+            <span asp-validation-for="Referido" class="text-danger"></span>
+            </div>*@
             <div class="form-group">
-                <label asp-for="Factura" class="control-label"></label>
-                <input asp-for="Factura" class="form-control" />
-                <span asp-validation-for="Factura" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Referido" class="control-label"></label>
-                <input asp-for="Referido" class="form-control" />
-                <span asp-validation-for="Referido" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CheckIn" class="control-label"></label>
-                <input asp-for="CheckIn" class="form-control" />
-                <span asp-validation-for="CheckIn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cancelado" class="control-label"></label>
-                <input asp-for="Cancelado" class="form-control" />
-                <span asp-validation-for="Cancelado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Oferta" class="control-label"></label>
-                <input asp-for="Oferta" class="form-control" />
-                <span asp-validation-for="Oferta" class="text-danger"></span>
+                <label asp-for="OfertaId">Oferta</label>
+                <select asp-for="OfertaId" class="form-control" asp-items="@ViewBag.OfertaId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -77,9 +59,11 @@
 
 <div>
     <a asp-action="Index">Back to List</a>
-    <a asp-action="Delete">Eliminar Registro</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id">Eliminar</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
