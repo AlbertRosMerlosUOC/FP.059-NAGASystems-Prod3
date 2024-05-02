@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\Usuario\source\repos\AlbertRosMerlosUOC\FP.059-NAGASystems-Prod3\bin\Release\net8.0\publish\</_PublishTargetUrl>
+    <History>True|2024-05-02T21:37:15.3982753Z;True|2024-05-02T23:34:47.1859864+02:00;True|2024-05-02T23:27:10.4264441+02:00;True|2024-05-02T23:05:58.9920565+02:00;True|2024-05-02T23:03:52.1193471+02:00;True|2024-05-02T22:48:18.2689499+02:00;True|2024-05-02T22:39:45.3365632+02:00;True|2024-05-02T22:06:47.2672916+02:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
