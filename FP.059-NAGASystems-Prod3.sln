@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FP.059-NAGASystems-Prod3", "FP.059-NAGASystems-Prod3.csproj", "{BBE078CA-276C-43AB-9073-E815E8FF90F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FP.059-NAGASystems-Prod3", "FP.059-NAGASystems-Prod3.csproj", "{BBE078CA-276C-43AB-9073-E815E8FF90F1}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "..\Installer\Installer.vdproj", "{B2287700-DF68-4D8F-9329-87E00E80B2FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BBE078CA-276C-43AB-9073-E815E8FF90F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBE078CA-276C-43AB-9073-E815E8FF90F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBE078CA-276C-43AB-9073-E815E8FF90F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2287700-DF68-4D8F-9329-87E00E80B2FB}.Debug|Any CPU.ActiveCfg = Debug
+		{B2287700-DF68-4D8F-9329-87E00E80B2FB}.Debug|Any CPU.Build.0 = Debug
+		{B2287700-DF68-4D8F-9329-87E00E80B2FB}.Release|Any CPU.ActiveCfg = Release
+		{B2287700-DF68-4D8F-9329-87E00E80B2FB}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
